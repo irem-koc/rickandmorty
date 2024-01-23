@@ -1,47 +1,54 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react";
+import EpisodeItem from "../components/EpisodeItem";
 import { MyContext } from "../context/MyContext";
 import getAllEpisodes from "../services/getAllEpisodes";
+import EpisodePagination from "../components/EpisodePagination";
 
 const Home = () => {
-  const { episodeList, setEpisodeList, setTotalPage, pageNumber } =
-    useContext(MyContext);
+  const {
+    episodeList,
+    setEpisodeList,
+    setTotalPage,
+    episodePageNumber,
+    isLoading,
+    setIsLoading,
+  } = useContext(MyContext);
 
   const fetchData = async () => {
     try {
-      await getAllEpisodes(pageNumber).then((response) => {
+      await getAllEpisodes(episodePageNumber).then((response) => {
         setEpisodeList(response);
         setTotalPage(response.info.pages);
+        setIsLoading(false);
       });
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
+  console.log(episodeList.results);
   useEffect(() => {
-    fetchData();
-  }, [pageNumber]);
+    setIsLoading(true);
+    const fetchDataTimeout = setTimeout(fetchData, 1500);
+
+    return () => {
+      clearTimeout(fetchDataTimeout);
+    };
+  }, [episodePageNumber]);
   return (
     <div>
-      <table className="mt-4 table table-bordered text-start m-auto table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#Name</th>
-            <th scope="col">#Air date</th>
-            <th scope="col">#Episode</th>
-            <th scope="col"># of Character</th>
-          </tr>
-        </thead>
-        <tbody>
-          {episodeList.results?.map((episode) => (
-            <tr key={episode.id}>
-              <td scope="row">{episode.name}</td>
-              <td>{episode.air_date}</td>
-              <td>{episode.episode}</td>
-              <td>{episode.characters.length}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="d-flex flex-wrap my-3 mx-auto justify-content-center gap-3">
+        {isLoading === true ? (
+          <div>
+            <div colSpan={12}>Loading...</div>
+          </div>
+        ) : (
+          episodeList.results?.map((episode) => (
+            <EpisodeItem key={episode.id} episode={episode} />
+          ))
+        )}
+      </div>
+      <EpisodePagination />
     </div>
   );
 };

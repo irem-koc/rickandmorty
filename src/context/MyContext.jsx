@@ -5,15 +5,18 @@ export const MyContext = createContext();
 
 const ContextProvider = ({ children }) => {
   const [episodeList, setEpisodeList] = useState([]);
-  const [pageNumber, setPageNumber] = useState(1);
+  const [episodePageNumber, setEpisodePageNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
   const values = {
     episodeList,
     setEpisodeList,
-    pageNumber,
-    setPageNumber,
+    episodePageNumber,
+    setEpisodePageNumber,
     totalPage,
     setTotalPage,
+    isLoading,
+    setIsLoading,
   };
   return <MyContext.Provider value={values}>{children}</MyContext.Provider>;
 };

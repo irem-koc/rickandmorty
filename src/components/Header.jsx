@@ -1,9 +1,13 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <div>
       <nav className="flex navbar navbar-light bg-light p-2">
-        <h1 className="navbar-brand" href="#">
-          Rick & Morty App
+        <h1 className="navbar-brand">
+          <Link className="text-decoration-none" to="/">
+            Rick & Morty App
+          </Link>
         </h1>
         <form className="d-flex align-items-center justify-content-center form my-2 gap-2 ">
           <input
