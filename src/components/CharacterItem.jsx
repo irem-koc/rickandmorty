@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import getCharacter from "../services/getCharacter";
-
+import "./../styles/style.css";
 const CharacterItem = ({ characterNumber }) => {
   const navigate = useNavigate();
   const [character, setCharacter] = useState();
@@ -25,7 +25,7 @@ const CharacterItem = ({ characterNumber }) => {
     <div>
       <div
         onClick={() => navigate(`/character/${character.id}`)}
-        className="card"
+        className="card hover-effect"
         style={{ width: "18rem" }}
       >
         <div className="card-body">

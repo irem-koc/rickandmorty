@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { MyContext } from "../context/MyContext";
 import getCharacter from "../services/getCharacter";
+import getChar from "../utils/getCharId";
 
 const Character = () => {
   const { id } = useParams();
@@ -28,7 +29,23 @@ const Character = () => {
       {isLoading === true ? (
         <div>Loading...</div>
       ) : (
-        <div>Character: {character?.name}</div>
+        <div>
+          <div>Character: {character?.name}</div>
+          <div>Status: {character?.status}</div>
+          <div>Species: {character?.species}</div>
+          <div>Type: {character?.type}</div>
+          <div>Gender:{character?.gender}</div>
+          <div>
+            <img src={character?.image} alt={character?.name} />
+          </div>
+          <div className="episodes d-flex flex-wrap gap-5 mt-5">
+            {character?.episode.map((episode, index) => (
+              <Link key={index} to={`/episode/${getChar(episode)}`}>
+                Episode - {getChar(episode)}
+              </Link>
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );

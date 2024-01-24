@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect } from "react";
 import EpisodeItem from "../components/EpisodeItem";
+import EpisodePagination from "../components/EpisodePagination";
 import { MyContext } from "../context/MyContext";
 import getAllEpisodes from "../services/getAllEpisodes";
-import EpisodePagination from "../components/EpisodePagination";
 
 const Home = () => {
   const {
@@ -44,7 +44,7 @@ const Home = () => {
           </div>
         ) : (
           episodeList.results?.map((episode) => (
-            <EpisodeItem key={episode.id} episode={episode} />
+            <EpisodeItem key={episode.id} episodeNr={episode.id} />
           ))
         )}
       </div>
