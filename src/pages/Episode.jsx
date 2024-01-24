@@ -9,8 +9,12 @@ import getChar from "../utils/getCharId";
 
 const Episode = () => {
   const { id } = useParams();
-  const { isLoading, setIsLoading, characterPageNumber } =
-    useContext(MyContext);
+  const {
+    isLoading,
+    setIsLoading,
+    characterPageNumber,
+    setCharacterPageNumber,
+  } = useContext(MyContext);
   const [episode, setEpisode] = useState("");
   const [characterList, setCharacterList] = useState();
   const fetchData = async () => {
@@ -25,6 +29,7 @@ const Episode = () => {
     }
   };
   useEffect(() => {
+    setCharacterPageNumber(1);
     setIsLoading(true);
     const fetchDataTimeout = setTimeout(fetchData, 1500);
 

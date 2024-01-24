@@ -1,9 +1,12 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { MyContext } from "../context/MyContext";
 
 const EpisodePagination = () => {
   const { totalPage, episodePageNumber, setEpisodePageNumber } =
     useContext(MyContext);
+  useEffect(() => {
+    setEpisodePageNumber(1);
+  }, []);
   return (
     <div>
       <div className="d-flex justify-content-center">
