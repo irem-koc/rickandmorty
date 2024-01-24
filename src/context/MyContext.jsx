@@ -5,6 +5,7 @@ export const MyContext = createContext();
 
 const ContextProvider = ({ children }) => {
   const [episodeList, setEpisodeList] = useState([]);
+  const [favCharList, setFavCharList] = useState([]);
   const [episodePageNumber, setEpisodePageNumber] = useState(1);
   const [characterPageNumber, setCharacterPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +21,8 @@ const ContextProvider = ({ children }) => {
     setIsLoading,
     characterPageNumber,
     setCharacterPageNumber,
+    favCharList,
+    setFavCharList,
   };
   return <MyContext.Provider value={values}>{children}</MyContext.Provider>;
 };
