@@ -3,11 +3,7 @@ import { useContext } from "react";
 import { MyContext } from "../context/MyContext";
 
 const CharacterPagination = ({ totalPage }) => {
-  console.log(totalPage);
-  console.log("555555555555555555");
-
   const { characterPageNumber, setCharacterPageNumber } = useContext(MyContext);
-  console.log(totalPage / 4 >= characterPageNumber);
 
   return (
     <div>

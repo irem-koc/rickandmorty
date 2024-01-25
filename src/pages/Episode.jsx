@@ -38,8 +38,6 @@ const Episode = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
 
-  console.log(startIndex, " start");
-  console.log(endIndex, " end");
   useEffect(() => {
     const newStartIndex = (Number(characterPageNumber) - 1) * 4;
     const newEndIndex = 4 * Number(characterPageNumber);
