@@ -9,7 +9,7 @@ const Header = () => {
             Rick & Morty App
           </Link>
           <Link className="text-decoration-none text-sm" to="/fav-chars">
-            Favourite Characters
+            Favorite Characters
           </Link>
         </h1>
         <form className="d-flex align-items-center justify-content-center form my-2 gap-2 ">

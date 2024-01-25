@@ -6,11 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { MyContext } from "../context/MyContext";
 import getCharacter from "../services/getCharacter";
 import "./../styles/style.css";
+
 const CharacterItem = ({ characterNumber }) => {
   const navigate = useNavigate();
   const [character, setCharacter] = useState();
-  const [addFav, setAddFav] = useState(false);
-  const { favCharList, setFavCharList } = useContext(MyContext);
+  const { favCharList, setFavCharList, favChars, setFavChars } =
+    useContext(MyContext);
+
+  const isFavorite = favCharList.includes(characterNumber);
+
   const fetchData = async () => {
     try {
       await getCharacter(characterNumber).then((response) => {
@@ -20,34 +24,37 @@ const CharacterItem = ({ characterNumber }) => {
       console.error("Error fetching products:", error);
     }
   };
-  console.log(favCharList);
-  useEffect(() => {
-    setAddFav(false);
-  }, [characterNumber]);
+
   useEffect(() => {
     const fetchDataTimeout = setTimeout(fetchData, 1500);
 
     return () => clearTimeout(fetchDataTimeout);
   }, [character]);
+  useEffect(() => {
+    localStorage.setItem("favChars", JSON.stringify(favChars));
+  }, [favChars]);
+
   const handleRemoveFav = () => {
-    setAddFav(false);
     const newFavCharList = favCharList.filter((fav) => fav !== characterNumber);
+    const newFavsList = favChars.filter((fav) => fav.id !== characterNumber);
+    setFavChars(newFavsList);
     setFavCharList(newFavCharList);
   };
+
   const handleAddFav = () => {
     if (favCharList.length < 10) {
-      setAddFav(true);
-      console.log(characterNumber);
-      favCharList.push(characterNumber);
+      setFavCharList((prevList) => [...prevList, characterNumber]);
+      setFavChars((prevList) => [...prevList, character]);
     } else {
       alert(
-        "Favori karakter ekleme sayısını aştınız. Başka bir karakteri favorilerdençıkarmalısınız."
+        "Favori karakter ekleme sayısını aştınız. Başka bir karakteri favorilerden çıkarmalısınız."
       );
     }
   };
+
   return (
     <div>
-      {addFav ? (
+      {isFavorite ? (
         <MdOutlineFavorite onClick={() => handleRemoveFav()} />
       ) : (
         <MdOutlineFavoriteBorder onClick={() => handleAddFav()} />
