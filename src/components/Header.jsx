@@ -1,12 +1,51 @@
+/* eslint-disable no-unused-vars */
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { MyContext } from "../context/MyContext";
 
 const Header = () => {
-  const { searchValue, setSearchValue } = useContext(MyContext);
+  const {
+    searchValue,
+    setSearchValue,
+    characterList,
+    setCharacterList,
+    episodeList,
+    setEpisodeList,
+  } = useContext(MyContext);
+
   const handleFilter = (e) => {
     e.preventDefault();
-    console.log("Searche basıldı: ", searchValue);
+    if (window.location.pathname.includes("/episode")) {
+      // Eğer kullanıcı karakterler sayfasındaysa
+      console.log("burası");
+      console.log(characterList, "-->", searchValue, "-->", setCharacterList);
+      filterData(characterList, searchValue, setCharacterList);
+    } else if (window.location.pathname.includes("/")) {
+      // Eğer kullanıcı bölümler sayfasındaysa
+      console.log("hayır burası");
+      console.log(episodeList, "-->", searchValue, "-->", setEpisodeList);
+      console.log(episodeList, searchValue, setEpisodeList);
+    }
+  };
+  console.log(episodeList, "-->", searchValue, "-->", setEpisodeList);
+  const filterData = (data, term, setFilteredData) => {
+    // Örnek: Veriyi terime göre filtrele
+    let filtered = data;
+    if (term.length > 0) {
+      filtered = data.filter((item) =>
+        item.name?.toLowerCase().includes(term.toLowerCase())
+      );
+    }
+    console.log(filtered);
+    return filtered;
+  };
+  const filterEpisodeData = (data, term, setFilteredData) => {
+    // Örnek: Veriyi terime göre filtrele
+    const filtered = data?.results.filter((item) =>
+      item.name?.toLowerCase().includes(term.toLowerCase())
+    );
+    setFilteredData(filtered);
+    return filtered;
   };
   return (
     <div>

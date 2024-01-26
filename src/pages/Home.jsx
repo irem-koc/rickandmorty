@@ -26,7 +26,6 @@ const Home = () => {
       console.error("Error fetching products:", error);
     }
   };
-  console.log(episodeList.results);
   useEffect(() => {
     setIsLoading(true);
     const fetchDataTimeout = setTimeout(fetchData, 1500);

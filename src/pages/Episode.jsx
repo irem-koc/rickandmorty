@@ -14,9 +14,12 @@ const Episode = () => {
     setIsLoading,
     characterPageNumber,
     setCharacterPageNumber,
+    characterPageItem,
+    characterList,
+    setCharacterList,
   } = useContext(MyContext);
   const [episode, setEpisode] = useState("");
-  const [characterList, setCharacterList] = useState();
+
   const fetchData = async () => {
     try {
       await getEpisode(id).then((response) => {
@@ -39,12 +42,12 @@ const Episode = () => {
   const [endIndex, setEndIndex] = useState(0);
 
   useEffect(() => {
-    const newStartIndex = (Number(characterPageNumber) - 1) * 4;
-    const newEndIndex = 4 * Number(characterPageNumber);
+    const newStartIndex = (Number(characterPageNumber) - 1) * characterPageItem;
+    const newEndIndex = characterPageItem * Number(characterPageNumber);
 
     setStartIndex(newStartIndex);
     setEndIndex(newEndIndex);
-  }, [characterPageNumber]);
+  }, [characterPageNumber, characterPageItem]);
   return (
     <div>
       {isLoading === true ? (
