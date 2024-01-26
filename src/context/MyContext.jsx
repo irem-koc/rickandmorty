@@ -8,6 +8,7 @@ const ContextProvider = ({ children }) => {
   const [favCharList, setFavCharList] = useState([]);
   const [favChars, setFavChars] = useState([]);
   const [episodePageNumber, setEpisodePageNumber] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
   const [characterPageNumber, setCharacterPageNumber] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [totalPage, setTotalPage] = useState(0);
@@ -26,6 +27,8 @@ const ContextProvider = ({ children }) => {
     setFavCharList,
     favChars,
     setFavChars,
+    searchValue,
+    setSearchValue,
   };
   return <MyContext.Provider value={values}>{children}</MyContext.Provider>;
 };
